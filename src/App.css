@@ -73,3 +73,10 @@
   font-size: 5vh;
   margin-bottom: -12px;
 }
+
+.finished {
+  background-color: white;
+  border-radius: 24px;
+  border: solid red 2px;
+  border-spacing: 2px;
+}

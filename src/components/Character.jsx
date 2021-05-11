@@ -11,7 +11,7 @@ class Character extends Component {
       );
     }
 
-    if ((symbol === 'Start') || (symbol === 'Stop')) {
+    if ((symbol === 'New') || (symbol === 'Start')) {
       return (
         <div onClick={ () => action(symbol) } className="action-button">
           <h1>{ symbol }</h1>
