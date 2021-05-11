@@ -115,6 +115,7 @@ class Chronometer extends Component {
           { this.generateKeyboard() }
         </main>
         <footer>
+          <div>.</div>
         </footer>
       </section>
     );
