@@ -8,6 +8,7 @@ class Chronometer extends Component {
     this.changeTime = this.changeTime.bind(this);
     this.handleCharacterClick = this.handleCharacterClick.bind(this);
     this.clockTurnSwitch = this.clockTurnSwitch.bind(this);
+    this.checkSetupTime = this.checkSetupTime.bind(this);
     
     this.state = {
       showClock: false,
@@ -18,14 +19,26 @@ class Chronometer extends Component {
     }
   }
 
+  checkSetupTime() {
+    const spliedTimeSetup = this.state.timeSetup.split('');
+    console.log(spliedTimeSetup)
+    if (spliedTimeSetup.length > 5) {
+      alert('The maximum time allowed in minutes is only 6 digits!')
+      return false;
+    }
+    return true;
+  }
+
   changeTime(number) {
-    this.setState((oldState) => {
-      let updateValue = oldState.timeSetup + number;
-      if (oldState.timeSetup == 0) {
-        updateValue = number;
-      }
-      return { timeSetup: updateValue }
-    });
+    if(this.checkSetupTime()) {
+      this.setState((oldState) => {
+        let updateValue = oldState.timeSetup + number;
+        if (oldState.timeSetup === '0') {
+          updateValue = number;
+        }
+        return { timeSetup: updateValue }
+      });
+    }
   }
 
   handleCharacterClick(character) {
@@ -42,7 +55,7 @@ class Chronometer extends Component {
     return (
       <main className="keyboard">
         <p className="time-setup-title">In Minutes</p>
-        <Character action={ this.clockTurnSwitch } symbol={ this.state.timeSetup } type="timeSetup" />
+        <Character action={ () => alert('The time must be chosen in minutes!') } symbol={ this.state.timeSetup } type="timeSetup" />
         <Character action={ this.handleCharacterClick } symbol="7" />
         <Character action={ this.handleCharacterClick } symbol="8" />
         <Character action={ this.handleCharacterClick } symbol="9" />
