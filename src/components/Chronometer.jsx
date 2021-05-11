@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Countdown from 'react-countdown';
+import Sound from 'react-sound';
+import bit from '../effects/8-bit-music-155-bpm.mp3';
 
 import Character from './Character';
 import Finished from './Finished';
@@ -66,6 +68,8 @@ class Chronometer extends Component {
     this.setState({ showCountdown: false, showStop: false });
   }
 
+  
+  
   generateKeyboard() {
     return (
       <main className="keyboard">
@@ -95,6 +99,16 @@ class Chronometer extends Component {
 
   rendererCountdown({ hours, minutes, seconds, completed }) {
     if (completed) {
+      return <Sound
+          url={bit}
+          playbackRate={4}
+          volume={100}
+          playStatus={Sound.status.PLAYING}
+          playFromPosition={300 /* in milliseconds */}
+          onLoading={this.handleSongLoading}
+          onPlaying={this.handleSongPlaying}
+          onFinishedPlaying={this.handleSongFinishedPlaying}
+        />
       return <Finished />;
     } else {
       return <span>{hours}:{minutes}:{seconds}</span>;
@@ -103,7 +117,6 @@ class Chronometer extends Component {
 
   render() {
     const { showCountdown, miliseconds } = this.state;
-
     return (
       <section className="chronometer">
         <header></header>
