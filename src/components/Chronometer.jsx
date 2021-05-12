@@ -80,7 +80,7 @@ class Chronometer extends Component {
 
   convertToMiliseconds() {
     const { timeSetup } = this.state;
-    const miliseconds = parseInt(timeSetup) * 1000;
+    const miliseconds = parseInt(timeSetup) * 60000;
 
     this.setState({ miliseconds });
   }
@@ -182,7 +182,7 @@ class Chronometer extends Component {
             volume={20}
             playStatus={jump}
           />  }
-          { showCountdown &&  <Countdown date={Date.now() + miliseconds} renderer={ this.rendererCountdown } /> }
+          { showCountdown &&  <Countdown zeroPadTime={2} date={Date.now() + miliseconds} renderer={ this.rendererCountdown } /> }
           </div>
           { this.generateKeyboard() }
         </main>

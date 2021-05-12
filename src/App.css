@@ -85,6 +85,7 @@
   border: solid var(--main-color) 2px;
   border-spacing: 2px;
   color: var(--main-color);
+  padding-top: 12px;
 }
 
 .blinking {
