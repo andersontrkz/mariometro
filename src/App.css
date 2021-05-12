@@ -1,8 +1,13 @@
 @font-face {font-family: "Super Mario 256"; src: url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.eot"); src: url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.woff") format("woff"), url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/6c02f15fdbc9dd7c482b52b06d8e0a6c.svg#Super Mario 256") format("svg"); }
 
+:root {
+  --main-color: red;
+}
+
+
 .fixed-background {
   font-family: 'Super Mario 256';
-  color: red;
+  color: var(--main-color);
   font-size: 40px;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     -webkit-text-stroke: 4px black;
@@ -37,7 +42,7 @@
   align-items: center;
   width: 12vh;
   height: 12vh;
-  border: red solid 2px;
+  border: var(--main-color) solid 2px;
   border-radius: 24px;
   margin: 8px;
   background-color: ghostwhite;
@@ -50,7 +55,7 @@
   align-items: center;
   width: 42vh;
   height: 12vh;
-  border: red solid 2px;
+  border: var(--main-color) solid 2px;
   border-radius: 18px;
   margin: 8px;
   background-color: ghostwhite;
@@ -63,7 +68,7 @@
   align-items: center;
   width: 42vh;
   height: 12vh;
-  border: red solid 2px;
+  border: var(--main-color) solid 2px;
   border-radius: 18px;
   margin: 8px;
   background-color: ghostwhite;
@@ -77,6 +82,27 @@
 .finished {
   background-color: white;
   border-radius: 24px;
-  border: solid red 2px;
+  border: solid var(--main-color) 2px;
   border-spacing: 2px;
+  color: var(--main-color);
+}
+
+.blinking {
+
+  animation: opacity 2s ease-in-out infinite;
+  opacity: 1;
+  }
+  
+  @keyframes opacity {
+  0% {
+  opacity: 1;
+  }
+  
+  50% {
+  opacity: 0
+  }
+  
+  100% {
+  opacity: 1;
+  }
 }

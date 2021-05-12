@@ -13,14 +13,14 @@ class Character extends Component {
 
     if ((symbol === 'New') || (symbol === 'Start')) {
       return (
-        <div onClick={ () => action(symbol) } className="action-button">
-          <h1>{ symbol }</h1>
+        <div onClick={ () => action(symbol) } className="action-button zoom-button">
+          <h1 className="zoom-button">{ symbol }</h1>
         </div>
       );
     }
 
     return (
-      <div onClick={ () => action(symbol) } className="character">
+      <div onClick={ () => action(symbol) } className="character zoom-button">
         <h1>{ symbol }</h1>
       </div>
     );
