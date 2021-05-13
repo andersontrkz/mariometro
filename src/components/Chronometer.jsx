@@ -6,8 +6,8 @@ import jumpMp3 from '../effects/jump.mp3';
 import coinMp3 from '../effects/coin.mp3';
 import endMp3 from '../effects/end.mp3';
 
-import Character from './Character';
-import Finished from './Finished';
+import Character from './Character.jsx';
+import Finished from './Finished.jsx';
 
 class Chronometer extends Component {
   constructor(props) {
@@ -30,34 +30,28 @@ class Chronometer extends Component {
         jump: Sound.status.PLAYING,
         coin: Sound.status.PLAYING,
         end: Sound.status.PLAYING,
-      }
-    }
-  }
-
-  setColorCss() {
-    let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
-
-    document.documentElement.style.setProperty('main-color', randomColor);
+      },
+    };
   }
 
   checkSetupTime() {
     const spliedTimeSetup = this.state.timeSetup.split('');
-    console.log(spliedTimeSetup)
+    console.log(spliedTimeSetup);
     if (spliedTimeSetup.length > 5) {
-      alert('The maximum time allowed in minutes is only 6 digits!')
+      alert('The maximum time allowed in minutes is only 6 digits!');
       return false;
     }
     return true;
   }
 
   changeTime(number) {
-    if(this.checkSetupTime()) {
+    if (this.checkSetupTime()) {
       this.setState((oldState) => {
         let updateValue = oldState.timeSetup + number;
         if (oldState.timeSetup === '0') {
           updateValue = number;
         }
-        return { timeSetup: updateValue }
+        return { timeSetup: updateValue };
       });
     }
   }
@@ -67,45 +61,44 @@ class Chronometer extends Component {
   }
 
   delete() {
-    if(this.checkSetupTime()) {
+    if (this.checkSetupTime()) {
       this.setState((oldState) => {
         let updateValue = oldState.timeSetup.slice(0, -1);
         if (oldState.timeSetup.length < 2) {
           updateValue = '0';
         }
-        return { timeSetup: updateValue }
+        return { timeSetup: updateValue };
       });
     }
   }
 
   convertToMiliseconds() {
     const { timeSetup } = this.state;
-    const miliseconds = parseInt(timeSetup) * 60000;
+    const miliseconds = parseInt(timeSetup, 10) * 60000;
 
     this.setState({ miliseconds });
   }
 
   handleCharacterClick(character) {
-    const numbers = ['0', '1', '2', '3' , '4', '5', '6', '7', '8' ,'9'];
+    const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     numbers.forEach((number) => {
-      if(character === number) {
+      if (character === number) {
         this.changeTime(character);
       }
-    })
+    });
 
-    if(character === "C") {
+    if (character === 'C') {
       this.clear();
     }
 
-    if(character === "X") {
+    if (character === 'X') {
       this.delete();
     }
 
     this.setState({ showCountdown: false, showStop: false, coin: Sound.status.PLAYING });
   }
 
-  
   generateKeyboard() {
     return (
       <main className="keyboard">
@@ -125,12 +118,14 @@ class Chronometer extends Component {
         <Character action={ this.handleCharacterClick } symbol="C" />
         <Character action={ this.clockTurnSwitch } symbol={ this.state.showStop ? 'New' : 'Start' } />
       </main>
-    )
+    );
   }
   
   clockTurnSwitch() {
     this.convertToMiliseconds();
-    this.setState((oldState) => ({ showCountdown: !oldState.showCountdown, showStop: !oldState.showStop, timeSetup: '0' }));
+    this.setState((oldState) => (
+      { showCountdown: !oldState.showCountdown, showStop: !oldState.showStop, timeSetup: '0' }
+      ));
   }
 
   rendererCountdown({ hours, minutes, seconds, completed }) {
@@ -144,18 +139,17 @@ class Chronometer extends Component {
         />
       <Finished />
     </div>;
-    } else {
-      return <span>{hours}:{minutes}:{seconds}</span>;
     }
-  };
+
+    return <span className="countdown">{hours}:{minutes}:{seconds}</span>;
+  }
 
   componentDidMount() {
-    this.setState({ theme: true })
+    this.setState({ theme: true });
   }
 
   render() {
     const { sounds: { theme, jump, coin }, showCountdown, showStop, miliseconds } = this.state;
-
     return (
       <section className="chronometer">
         <header>
@@ -163,26 +157,10 @@ class Chronometer extends Component {
         <main className="keyboardParent">
           <div className="keyboard" />
           <div className="keyboard">
-          { (showCountdown && showStop) && <Sound
-            url={ coinMp3 }
-            playbackRate={2}
-            volume={20}
-            playStatus={coin}
-          /> }
-          { showCountdown && <Sound
-            url={ themeMp3 }
-            playbackRate={1}
-            volume={100}
-            playStatus={theme}
-            loop={true}
-          />  }
-          { !showCountdown && <Sound
-            url={ jumpMp3 }
-            playbackRate={2}
-            volume={20}
-            playStatus={jump}
-          />  }
-          { showCountdown &&  <Countdown zeroPadTime={2} date={Date.now() + miliseconds} renderer={ this.rendererCountdown } /> }
+          { (showCountdown && showStop) && <Sound url={ coinMp3 } playbackRate={2} volume={20} playStatus={coin} /> }
+          { showCountdown && <Sound url={ themeMp3 } playbackRate={1} volume={100} playStatus={theme} loop={true} /> }
+          { !showCountdown && <Sound url={ jumpMp3 } playbackRate={2} volume={20} playStatus={jump}/> }
+          { showCountdown && <Countdown date={Date.now() + miliseconds} renderer={ this.rendererCountdown } /> }
           </div>
           { this.generateKeyboard() }
         </main>

@@ -1,7 +1,8 @@
-import YoutubeBackground from 'react-youtube-background'
+import React from 'react';
+import YoutubeBackground from 'react-youtube-background';
 
 import './App.css';
-import Chronometer from './components/Chronometer'
+import Chronometer from './components/Chronometer.jsx';
 
 function App() {
   return (
